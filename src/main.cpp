@@ -1,9 +1,8 @@
-// ShellCraft - a custom Unix shell written in C++
-// Milestone 0: project skeleton. Verifies that the build toolchain works.
+// ShellCraft - a custom Unix shell written in C++17
+// Operating Systems Project implementation using POSIX process, pipe, file, and job-control APIs.
 
-#include <iostream>
+#include "shell.hpp"
 
 int main() {
-    std::cout << "ShellCraft starting..." << std::endl;
-    return 0;
+    return shellcraft::run_shell();
 }

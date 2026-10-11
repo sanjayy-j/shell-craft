@@ -6,11 +6,13 @@ CXXFLAGS := -std=c++17 -Wall -Wextra -g
 TARGET   := shellcraft
 SRCDIR   := src
 OBJDIR   := build
+TESTDIR  := tests
+TEST_PARSER_BIN := $(OBJDIR)/test_parser
 
 SRCS := $(wildcard $(SRCDIR)/*.cpp)
 OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
-.PHONY: all clean run
+.PHONY: all clean run test
 
 all: $(TARGET)
 
@@ -23,8 +25,14 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
+$(TEST_PARSER_BIN): $(TESTDIR)/test_parser.cpp $(OBJDIR)/parser.o | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -I$(SRCDIR) -o $@ $^
+
 run: $(TARGET)
 	./$(TARGET)
+
+test: $(TARGET) $(TEST_PARSER_BIN)
+	bash $(TESTDIR)/run_tests.sh
 
 clean:
 	rm -rf $(OBJDIR) $(TARGET)

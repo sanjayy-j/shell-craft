@@ -1,0 +1,6 @@
+# Build artifacts
+build/
+shellcraft
+*.o
+*.out
+*.exe
